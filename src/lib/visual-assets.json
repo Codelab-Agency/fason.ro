@@ -1,0 +1,21 @@
+{
+  "hero": {
+    "mobile": {
+      "width": 3002,
+      "height": 4061,
+      "src": "/images/hero/mobile-750.5371bdfcbb4d.webp",
+      "srcSet": "/images/hero/mobile-640.6f89d4df7b94.webp 640w, /images/hero/mobile-750.5371bdfcbb4d.webp 750w, /images/hero/mobile-960.c7d9d930d08f.webp 960w, /images/hero/mobile-1080.c93b4e3b9f34.webp 1080w, /images/hero/mobile-1280.fa42f563cb0e.webp 1280w, /images/hero/mobile-1600.30d5fb61bd67.webp 1600w, /images/hero/mobile-1920.838f16fbe04a.webp 1920w, /images/hero/mobile-2560.082cdbd2fc69.webp 2560w, /images/hero/mobile-3002.2dea3e31dcd6.webp 3002w"
+    },
+    "desktop": {
+      "width": 3002,
+      "height": 2252,
+      "src": "/images/hero/desktop-750.12dc601ecbb3.webp",
+      "srcSet": "/images/hero/desktop-640.76e2e604f7fe.webp 640w, /images/hero/desktop-750.12dc601ecbb3.webp 750w, /images/hero/desktop-960.9ffc53ba2124.webp 960w, /images/hero/desktop-1080.070458b1dd56.webp 1080w, /images/hero/desktop-1280.7f556749d562.webp 1280w, /images/hero/desktop-1600.53100fd23974.webp 1600w, /images/hero/desktop-1920.7fd989023c39.webp 1920w, /images/hero/desktop-2560.f733c2957f15.webp 2560w, /images/hero/desktop-3002.3a21e44cc52c.webp 3002w"
+    }
+  },
+  "fontPreloads": [
+    "/fonts/manrope-latin-wght-normal.a30ddcd34970.woff2",
+    "/fonts/cormorant-garamond-latin-400-normal.8048ac209bec.woff2",
+    "/fonts/cormorant-garamond-latin-400-italic.e48e58027030.woff2"
+  ]
+}

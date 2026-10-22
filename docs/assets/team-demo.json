@@ -1,0 +1,22 @@
+{
+  "createdAt": "2026-10-22",
+  "generator": "Built-in imagegen",
+  "purpose": "Fictional team members explicitly requested for the design demonstration. These do not depict actual FASON employees.",
+  "processing": "Resized to 960px width and encoded as WebP quality 85 with Sharp. No retouching.",
+  "assets": [
+    {
+      "source": "exec-6ccbc648-7fbe-4291-8ae7-6db70a34b9ec.png",
+      "destination": "public/images/team-mara-demo.webp",
+      "subject": "Fictional woman colorist, brunette bob, black cotton top, matte charcoal background, soft window light, natural texture, vertical editorial portrait.",
+      "bytes": 45478,
+      "sha256": "3ad9142419d7dc8716559db5c8b333cb9f89c0afefe6b97246bdf58efae092cd"
+    },
+    {
+      "source": "exec-6ba4f5ed-6d10-4e92-a0a9-452b9a624512.png",
+      "destination": "public/images/team-andrei-demo.webp",
+      "subject": "Fictional man hairstylist, short wavy dark hair, light stubble, black cotton shirt, matte charcoal background, soft window light, natural texture, vertical editorial portrait.",
+      "bytes": 45876,
+      "sha256": "6d1f714a27c2c562096ed39d40a86c4494a29ec527385c7250fefef15310f5ea"
+    }
+  ]
+}
