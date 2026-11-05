@@ -2,7 +2,9 @@ import { MotionProvider } from "@/components/effects/MotionProvider";
 import { Navigation } from "@/components/sections/Navigation";
 import { Hero } from "@/components/sections/Hero";
 import { Services } from "@/components/sections/Services";
-import { Appointments } from "@/components/sections/Appointments";
+import { Founder } from "@/components/sections/Founder";
+import { GoodToKnow } from "@/components/sections/GoodToKnow";
+import { Reviews } from "@/components/sections/Reviews";
 import { Portfolio } from "@/components/sections/Portfolio";
 import { Team } from "@/components/sections/Team";
 import { About } from "@/components/sections/About";
@@ -16,11 +18,13 @@ export default function Home() {
       <Navigation />
       <main id="continut">
         <Hero />
+        <About />
+        <Founder />
         <Services />
-        <Appointments />
         <Portfolio />
         <Team />
-        <About />
+        <Reviews />
+        <GoodToKnow />
         <Location />
         <Contact />
       </main>

@@ -1,0 +1,31 @@
+﻿{
+  "reviewedOn": "2026-11-05",
+  "sources": [
+    {
+      "sha256": "C12609E6AFDD74D78FA9F776C4867280E70FB980E1ABB247FF1BF42397DE4279",
+      "name": "FASON WEBSITE_INFO.docx"
+    },
+    {
+      "sha256": "95C607F23CD449BF7997A95E08019972A5E45140C5C6AA0741659EAE5A11610A",
+      "name": "LISTA PRETURI finala preturi 2027.docx"
+    }
+  ],
+  "confirmedOverrides": [
+    "Eticheta Omul din spatele FASON este eliminata.",
+    "Tarifele 2027 se afiseaza deja, marcate cu anul 2027.",
+    "Tuns dama \u0026 barber ramane o singura categorie principala, ca in brief."
+  ],
+  "missingInputs": [
+    "Telefon si numar WhatsApp",
+    "Email destinatar si serviciu de trimitere pentru formular",
+    "Program de lucru",
+    "Linkuri sociale confirmate",
+    "Numele, fotografiile si tehnicile principale ale celorlalti membri ai echipei",
+    "Cheie Google Places pentru recenzii live"
+  ],
+  "tariffQuestions": [
+    "Vacuum dublu: sedinta individuala 130 lei; pret intreg de referinta in abonament 120 x 8 = 960 lei; abonament 880 lei. Valorile sursei sunt pastrate.",
+    "Coafat special extra: sursa specifica 120/150 lei fara criteriul variantei.",
+    "Epilat genian: denumirea din document este pastrata."
+  ]
+}

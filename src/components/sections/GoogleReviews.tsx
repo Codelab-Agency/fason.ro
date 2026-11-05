@@ -89,7 +89,7 @@ function Review({ review }: { review: GoogleReview }) {
   );
 }
 
-export function GoogleReviews() {
+export function GoogleReviews({ featured = false }: { featured?: boolean }) {
   const root = useRef<HTMLDivElement>(null);
   const [data, setData] = useState<GoogleReviewsData | null>(null);
   const [open, setOpen] = useState(false);
@@ -123,7 +123,50 @@ export function GoogleReviews() {
   }, []);
 
   return (
-    <div ref={root} className="inline-flex" aria-label="Recenzii Google">
+    <div
+      ref={root}
+      className={featured ? "block min-w-0" : "inline-flex"}
+      aria-label="Recenzii Google"
+    >
+      {featured && data && (
+        <div className="mb-8">
+          <Image
+            src="/images/google-maps-attribution.svg"
+            alt="Google Maps"
+            width={98}
+            height={18}
+            className="mb-5 h-[18px] w-[98px]"
+          />
+          {data.rating != null && (
+            <div className="mb-7 flex flex-wrap items-center gap-x-5 gap-y-2">
+              <Rating value={data.rating} />
+              {data.count != null && (
+                <p className="text-sm text-ink/65">
+                  {data.count} recenzii pe Google
+                </p>
+              )}
+            </div>
+          )}
+          {data.reviews.length > 0 && (
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {data.reviews.map((review) => (
+                <Review key={review.id} review={review} />
+              ))}
+            </div>
+          )}
+          {data.attributions.map((item) => (
+            <a
+              key={item.url}
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 block text-xs text-ink/65"
+            >
+              {item.name}
+            </a>
+          ))}
+        </div>
+      )}
       {data ? (
         <ActionButton
           variant="text"
@@ -131,7 +174,7 @@ export function GoogleReviews() {
           aria-label="Recenzii pe Google"
           aria-haspopup="dialog"
         >
-          Recenzii
+          {featured ? "Citește recenziile" : "Recenzii"}
         </ActionButton>
       ) : (
         <ActionLink
@@ -140,7 +183,7 @@ export function GoogleReviews() {
           rel="noopener noreferrer"
           aria-label="Recenzii pe Google"
         >
-          Recenzii
+          {featured ? "Vezi recenziile pe Google" : "Recenzii"}
         </ActionLink>
       )}
       <Dialog
@@ -150,9 +193,13 @@ export function GoogleReviews() {
         wide
       >
         <div className="pt-3">
-          <p translate="no" className="mb-5 text-[14px] text-[#5e5e5e]">
-            Google Maps
-          </p>
+          <Image
+            src="/images/google-maps-attribution.svg"
+            alt="Google Maps"
+            width={98}
+            height={18}
+            className="mb-5 h-[18px] w-[98px]"
+          />
           <h3 className="text-[30px] tracking-[-0.04em]">
             Recenzii pentru FASON
           </h3>

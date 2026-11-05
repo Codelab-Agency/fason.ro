@@ -1,0 +1,8 @@
+{
+  "publisher": "Google Maps Platform",
+  "source": "https://developers.google.com/static/maps/documentation/images/Google_Maps_Attribution_Assets.zip",
+  "archiveEntry": "Google_Maps_Attribution_Assets/GoogleMaps_Logo_DarkGray/GoogleMaps_Logo_DarkGray.svg",
+  "localFile": "public/images/google-maps-attribution.svg",
+  "modified": false,
+  "usageGuidelines": "https://developers.google.com/maps/documentation/places/web-service/policies"
+}

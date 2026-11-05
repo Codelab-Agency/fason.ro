@@ -37,6 +37,22 @@ export function TeamMemberCard({ member }: { member: TeamMember }) {
         <p className="mt-2 text-[0.75rem] leading-[1.65] font-medium text-accent">
           {member.role}
         </p>
+        {(member.specialization || member.technique) && (
+          <dl className="mt-4 space-y-2 text-[0.8125rem] leading-[1.75]">
+            {member.specialization && (
+              <div>
+                <dt className="text-ink/65">Specializare</dt>
+                <dd>{member.specialization}</dd>
+              </div>
+            )}
+            {member.technique && (
+              <div>
+                <dt className="text-ink/65">Tehnica principală</dt>
+                <dd>{member.technique}</dd>
+              </div>
+            )}
+          </dl>
+        )}
         <p className="mt-2 max-w-[30ch] text-[0.8125rem] leading-[1.75] text-ink/65">
           {member.focus}
         </p>

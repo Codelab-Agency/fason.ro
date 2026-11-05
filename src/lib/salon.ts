@@ -1,7 +1,6 @@
 import type { ServicePrice } from "./pricing";
 
-// Contactele rămân necompletate până la confirmare. Tarifele și cele două
-// profiluri marcate ca demonstrative sunt exemple cerute pentru design.
+// Datele lipsă din brief rămân null. Publicăm numai persoane confirmate.
 export const salon: {
   name: string;
   phone: string | null;
@@ -11,6 +10,8 @@ export const salon: {
   city: string | null;
   hours: string | null;
   instagramUrl: string | null;
+  facebookUrl: string | null;
+  tiktokUrl: string | null;
   mapUrl: string | null;
 } = {
   name: "FASON",
@@ -21,18 +22,26 @@ export const salon: {
   city: "București · Sector 3",
   hours: null,
   instagramUrl: null,
+  facebookUrl: null,
+  tiktokUrl: null,
   mapUrl:
     "https://www.google.com/maps/search/?api=1&query=Salon%20Fason%2C%20Strada%20Baia%20de%20Fier%2010%2C%20Bucure%C8%99ti&query_place_id=ChIJo6_d1z3_sUARgZc0ujvEup4",
 };
 
 export const navigation = [
-  { label: "Servicii", href: "#servicii" },
-  { label: "Portofoliu", href: "#portofoliu" },
-  { label: "Echipa", href: "#echipa" },
   { label: "Despre", href: "#despre" },
-  { label: "Locație", href: "#locatie" },
+  { label: "Cristina Gramma", href: "#cristina" },
+  { label: "Servicii", href: "#servicii" },
+  { label: "Echipa", href: "#echipa" },
   { label: "Contact", href: "#contact" },
+  { label: "Locație", href: "#locatie" },
 ];
+
+export const socialLinks = [
+  { label: "Instagram", href: salon.instagramUrl },
+  { label: "Facebook", href: salon.facebookUrl },
+  { label: "TikTok", href: salon.tiktokUrl },
+].filter((link): link is { label: string; href: string } => Boolean(link.href));
 
 export type SalonService = {
   id: string;
@@ -44,68 +53,62 @@ export type SalonService = {
   price: ServicePrice | null;
 };
 
-export const pricesAreDemonstrative = true;
+export const pricesAreDemonstrative = false;
 
 export const services: SalonService[] = [
   {
-    id: "tunsoare",
-    title: "Cut & shape",
-    subtitle: "Tuns & formă",
-    summary: "Linii, proporții și o formă care îți vine bine.",
-    price: { amount: 180, kind: "from" },
-    description:
-      "Lungime, proporții și textură, alese în funcție de părul tău. Stabilim forma și felul în care o poți întreține acasă.",
-    tags: ["Consultație", "Tuns personalizat", "Styling"],
+    id: "tuns-barber",
+    title: "Hair",
+    subtitle: "Tuns damă & barber",
+    summary: "",
+    price: null,
+    description: "",
+    tags: [],
   },
   {
-    id: "culoare",
-    title: "Color stories",
-    subtitle: "Culoare & balayage",
-    summary: "Balayage, colorare și nuanțe alese împreună.",
-    price: { amount: 450, kind: "from" },
-    description:
-      "Balayage, colorare sau tonalizare. Pornim de la nuanța actuală și rezultatul dorit, apoi alegem tehnica potrivită.",
-    tags: ["Balayage", "Colorare", "Tonalizare"],
+    id: "culoare-styling",
+    title: "Hair",
+    subtitle: "Culoare & styling",
+    summary: "",
+    price: null,
+    description: "",
+    tags: [],
   },
   {
-    id: "styling",
-    title: "Style & finish",
-    subtitle: "Coafat & styling",
-    summary: "Blow-dry, bucle, textură și finisaj.",
-    price: { amount: 100, kind: "from" },
-    description:
-      "Blow-dry, bucle sau textură. Alegem finisajul după lungimea părului și ocazia pentru care te pregătești.",
-    tags: ["Blow-dry", "Waves", "Textură"],
+    id: "cosmetica",
+    title: "Beauty",
+    subtitle: "Cosmetică",
+    summary: "",
+    price: null,
+    description: "",
+    tags: [],
   },
   {
-    id: "tratament",
-    title: "Hair rituals",
-    subtitle: "Îngrijire & tratamente",
-    summary: "Hidratare și îngrijire pentru nevoile părului.",
-    price: { amount: 120, kind: "from" },
-    description:
-      "Îngrijire pentru hidratare și nevoile specifice ale firului. Stabilim tratamentul în salon, după evaluarea părului.",
-    tags: ["Hidratare", "Îngrijire", "Ritual personalizat"],
+    id: "tratamente-faciale",
+    title: "Beauty",
+    subtitle: "Tratamente faciale",
+    summary: "",
+    price: null,
+    description: "",
+    tags: [],
   },
   {
-    id: "eveniment",
-    title: "Special moments",
-    subtitle: "Coafuri de eveniment",
-    summary: "O coafură gândită pentru ziua ta specială.",
-    price: { amount: 250, kind: "from" },
-    description:
-      "Coafuri pentru evenimente și mirese. Discutăm despre ținută, lungime și rezultatul dorit înainte să alegem forma.",
-    tags: ["Bridal", "Evenimente", "Coafuri creative"],
+    id: "tratamente-corporale",
+    title: "Beauty",
+    subtitle: "Tratamente corporale",
+    summary: "",
+    price: null,
+    description: "",
+    tags: [],
   },
   {
-    id: "consultatie",
-    title: "Let’s talk hair",
-    subtitle: "Consultație de imagine",
-    summary: "Timp să discutăm despre următoarea schimbare.",
-    price: { amount: 75, kind: "fixed" },
-    description:
-      "O discuție despre tunsoare, culoare și rutina de acasă, înainte de o schimbare.",
-    tags: ["Formă", "Culoare", "Rutina de acasă"],
+    id: "manichiura-pedichiura",
+    title: "Beauty",
+    subtitle: "Manichiură–pedichiură",
+    summary: "",
+    price: null,
+    description: "",
+    tags: [],
   },
 ];
 
@@ -114,37 +117,69 @@ export type TeamMember = {
   name: string;
   role: string;
   focus: string;
+  specialization?: string;
+  technique?: string;
   image: string | null;
   imagePosition?: string;
   demonstrative?: boolean;
+  departmentId: "coafor-barber" | "beauty";
 };
+
+export const founder = {
+  name: "Cristina Gramma",
+  role: "Fondatoare & Creative Director",
+  image: "/images/cristina.jpg",
+  imagePosition: "50% 15%",
+  introduction:
+    "Frumusețea înseamnă mai mult decât o coafură. Este o formă de exprimare a personalității.",
+  biography: [
+    "Cristina Gramma este sufletul și viziunea din spatele Salonului FASON, un hairstylist pasionat.",
+    "Cu o abordare ce îmbină tehnica, experiența și creativitatea, Cristina transformă fiecare idee într-un stil autentic, de la look-uri naturale și elegante până la creații artistice spectaculoase.",
+    "Prin Salon FASON, a creat un loc în care profesionalismul, pasiunea pentru frumos și grija față de oameni se întâlnesc zi de zi.",
+  ],
+};
+
+export const teamDepartments = [
+  {
+    id: "coafor-barber",
+    title: "Coafor & Barber",
+    description:
+      "Hairstyliști și specialiști în îngrijirea părului. Tehnică, creativitate și atenție la fiecare detaliu.",
+    serviceIds: ["tuns-barber", "culoare-styling"],
+    // Brief: trei hairstyliști și două persoane dedicate spălării/îngrijirii.
+    plannedRoles: [
+      "Hairstylist",
+      "Hairstylist",
+      "Hairstylist",
+      "Îngrijirea părului",
+      "Îngrijirea părului",
+    ],
+  },
+  {
+    id: "beauty",
+    title: "Beauty",
+    description:
+      "Specialiști în cosmetică și manichiură–pedichiură. Îngrijire facială și corporală, într-o abordare personalizată.",
+    serviceIds: [
+      "cosmetica",
+      "tratamente-faciale",
+      "tratamente-corporale",
+      "manichiura-pedichiura",
+    ],
+    plannedRoles: ["Cosmetică", "Manichiură–pedichiură"],
+  },
+] as const;
 
 export const teamMembers: TeamMember[] = [
   {
     id: "cristina",
-    name: "Cristina Grama",
-    role: "Hairstylist · Direcția creativă",
+    name: founder.name,
+    role: founder.role,
+    specialization: "Hairstyling",
     focus: "Formă, culoare și expresie personală.",
     image: "/images/cristina.jpg",
     imagePosition: "50% 15%",
-  },
-  {
-    id: "mara-demo",
-    name: "Mara Ionescu",
-    role: "Coloristă",
-    focus: "Balayage, blonduri și nuanțe naturale.",
-    image: "/images/team-mara-demo.webp",
-    imagePosition: "50% 32%",
-    demonstrative: true,
-  },
-  {
-    id: "andrei-demo",
-    name: "Andrei Matei",
-    role: "Hairstylist",
-    focus: "Tunsori, textură și styling.",
-    image: "/images/team-andrei-demo.webp",
-    imagePosition: "50% 32%",
-    demonstrative: true,
+    departmentId: "coafor-barber",
   },
 ];
 

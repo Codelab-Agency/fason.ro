@@ -76,6 +76,7 @@ export function createMotionController(scope: HTMLElement) {
 
     const removeSceneListeners: Array<() => void> = [];
     const context = gsap.context(() => {
+      if (!scope.querySelector("#acasa")) return;
       gsap.to(".hero-visual", {
         yPercent: 12,
         scale: 1.07,

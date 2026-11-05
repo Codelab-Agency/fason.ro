@@ -1,21 +1,12 @@
-import { pricesAreDemonstrative, salon, services } from "@/lib/salon";
-import { getWhatsAppHref } from "@/lib/contact";
+import Link from "next/link";
+import { services } from "@/lib/salon";
 import { Arrow } from "../ui/Icon";
 import { RevealWords } from "../effects/RevealWords";
 import { SectionLabel } from "../ui/SectionLabel";
 import { ServicePrice } from "../ui/ServicePrice";
-
-const groups = [
-  { title: "Formă & finisaj", ids: ["tunsoare", "styling", "eveniment"] },
-  {
-    title: "Culoare & îngrijire",
-    ids: ["culoare", "tratament", "consultatie"],
-  },
-];
+import { ActionLink } from "../ui/Action";
 
 export function Services() {
-  const hasWhatsApp = Boolean(getWhatsAppHref(salon.whatsappNumber));
-
   return (
     <section
       id="servicii"
@@ -25,16 +16,16 @@ export function Services() {
       <div className="mb-10 grid gap-6 md:mb-14 md:grid-cols-12 md:items-end">
         <div className="min-w-0 md:col-span-8">
           <div data-reveal className="mb-6">
-            <SectionLabel>Servicii & tarife</SectionLabel>
+            <SectionLabel>Serviciile FASON</SectionLabel>
           </div>
           <h2
             id="services-title"
             data-scroll-title
             className="section-heading max-md:text-[clamp(1.75rem,8.8vw,2.4rem)]"
           >
-            <RevealWords text="Tuns. Culoare." />{" "}
+            <RevealWords text="Hair &" />{" "}
             <span className="section-emphasis text-accent">
-              <RevealWords text="Styling." />
+              <RevealWords text="Beauty." />
             </span>
           </h2>
         </div>
@@ -42,63 +33,48 @@ export function Services() {
           data-reveal
           className="section-copy max-w-[280px] text-ink/65 md:col-span-4 md:justify-self-end"
         >
-          O schimbare mică sau un look cu totul nou. Începem cu ce îți dorești
-          tu.
+          Tehnică, creativitate și recomandări care pornesc de la tine.
         </p>
       </div>
-      <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-24">
-        {groups.map((group) => (
-          <div key={group.title}>
-            <h3 className="mb-3 font-editorial text-[1.75rem] leading-[1.2] italic text-accent">
-              {group.title}
-            </h3>
-            <div>
-              {group.ids.map((id) => {
-                const service = services.find((item) => item.id === id)!;
-                return (
-                  <article
-                    key={service.id}
-                    data-service-reveal
-                    className="group/service relative min-w-0 border-b border-ink/15 first:border-t"
+      <div className="grid gap-x-12 md:grid-cols-2 lg:gap-x-20">
+        {services.map((service) => (
+          <article
+            key={service.id}
+            data-service-reveal
+            className="group/service min-w-0 border-t border-ink/20"
+          >
+            <div className="flex flex-wrap items-start justify-between gap-4 py-7 md:min-h-[136px] md:py-8">
+              <div className="min-w-0 flex-1 basis-[230px]">
+                <p className="mb-3 text-[12px] text-accent">{service.title}</p>
+                <h3>
+                  <Link
+                    href={`/preturi#${service.id}`}
+                    className="flex min-h-11 max-w-full items-center justify-between gap-4 text-[clamp(1.25rem,2.5vw,2rem)] leading-[1.2] font-medium tracking-[-0.04em] transition-colors duration-150 hover:text-accent"
                   >
-                    <div className="flex flex-wrap items-start justify-between gap-x-5 gap-y-2 py-6 sm:py-7 lg:min-h-[148px]">
-                      <div className="min-w-0 flex-1 basis-[230px]">
-                        <h4>
-                          <a
-                            href={
-                              getWhatsAppHref(
-                                salon.whatsappNumber,
-                                service.subtitle,
-                              ) ?? "#programari"
-                            }
-                            target={hasWhatsApp ? "_blank" : undefined}
-                            rel={
-                              hasWhatsApp ? "noopener noreferrer" : undefined
-                            }
-                            className="inline-flex min-h-11 max-w-full items-center gap-3 text-[1.25rem] leading-[1.2] font-medium tracking-[-0.04em] [overflow-wrap:anywhere] transition-colors duration-150 hover:text-accent focus-visible:text-accent sm:text-[1.5rem] xl:text-[1.75rem]"
-                          >
-                            <span className="min-w-0">{service.subtitle}</span>
-                            <Arrow className="size-3 shrink-0 text-accent transition-transform duration-150 group-hover/service:-translate-y-0.5 group-hover/service:translate-x-0.5 motion-reduce:transform-none motion-reduce:transition-none" />
-                          </a>
-                        </h4>
-                        <p className="mt-1 max-w-[42ch] text-[0.75rem] leading-[1.75] text-ink/65">
-                          {service.summary}
-                        </p>
-                      </div>
-                      <ServicePrice price={service.price} />
-                    </div>
-                  </article>
-                );
-              })}
+                    <span className="min-w-0">{service.subtitle}</span>
+                    <Arrow className="size-3 shrink-0 text-accent transition-transform duration-150 group-hover/service:-translate-y-0.5 group-hover/service:translate-x-0.5 motion-reduce:transform-none" />
+                  </Link>
+                </h3>
+                {service.summary && (
+                  <p className="mt-3 max-w-[42ch] text-sm leading-[1.75] text-ink/65">
+                    {service.summary}
+                  </p>
+                )}
+              </div>
+              {service.price && <ServicePrice price={service.price} />}
             </div>
-          </div>
+          </article>
         ))}
       </div>
-      <p className="mt-6 max-w-[620px] text-[0.75rem] leading-[1.75] text-ink/65">
-        {pricesAreDemonstrative
-          ? "Tarife demonstrative, pentru prezentarea designului. Lista finală de prețuri va fi confirmată de salon."
-          : "Pentru serviciile cu preț de pornire, tariful final se stabilește după lungimea părului și tehnica aleasă, înainte de începerea serviciului."}
-      </p>
+      <div
+        data-reveal
+        className="mt-8 flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-ink/20 pt-6"
+      >
+        <p className="text-[0.875rem] text-ink/65">
+          Lista completă de servicii și tarife pentru 2027.
+        </p>
+        <ActionLink href="/preturi">Vezi tarifele 2027</ActionLink>
+      </div>
     </section>
   );
 }

@@ -12,10 +12,12 @@ import { Logo } from "../ui/Logo";
 export function MobileMenu({
   open,
   compact,
+  homePrefix = "",
   onClose,
 }: {
   open: boolean;
   compact: boolean;
+  homePrefix?: "" | "/";
   onClose: () => void;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
@@ -184,6 +186,10 @@ export function MobileMenu({
   }, [open, dismiss]);
 
   function navigate(href: string) {
+    if (!href.startsWith("#")) {
+      dismiss(() => window.location.assign(href));
+      return;
+    }
     dismiss(() => {
       history.pushState(null, "", href);
       const unhandled = window.dispatchEvent(
@@ -240,14 +246,18 @@ export function MobileMenu({
           className={`-mx-3 flex shrink-0 items-center justify-between border border-transparent px-[20px] sm:-mx-7 md:-mx-5 md:px-8 ${compact ? "h-16" : "h-[76px]"}`}
         >
           <a
-            href="#acasa"
+            href={`${homePrefix}#acasa`}
             aria-label="FASON — Acasă"
+            className="flex flex-col items-start gap-1.5"
             onClick={(event) => {
               event.preventDefault();
-              navigate("#acasa");
+              navigate(`${homePrefix}#acasa`);
             }}
           >
             <Logo dark decorative className="h-auto w-[124px] md:w-[140px]" />
+            <span className="text-[8px] leading-[1.4] tracking-[0.08em] uppercase">
+              Hair &amp; Beauty Salon
+            </span>
           </a>
           <MenuToggle ref={closeButton} expanded onClick={() => dismiss()} />
         </div>
@@ -256,7 +266,7 @@ export function MobileMenu({
           data-menu-detail
           className="mt-5 mb-3 flex shrink-0 items-center justify-between border-t border-ink/20 pt-4 text-[8px] tracking-[0.15em] uppercase [@media(max-height:650px)]:hidden"
         >
-          <span>Un look. O atitudine.</span>
+          <span>Cu drag de oameni</span>
           <span>București, RO</span>
         </div>
 
@@ -267,7 +277,7 @@ export function MobileMenu({
           {navigation.map((item, index) => (
             <a
               key={item.href}
-              href={item.href}
+              href={`${homePrefix}${item.href}`}
               aria-label={item.label}
               onClick={(event) => {
                 if (
@@ -278,14 +288,14 @@ export function MobileMenu({
                 )
                   return;
                 event.preventDefault();
-                navigate(item.href);
+                navigate(`${homePrefix}${item.href}`);
               }}
               className="group flex min-h-0 items-center gap-3 border-b border-ink/15 focus-visible:outline-offset-0"
             >
               <span className="block overflow-hidden py-1">
                 <span
                   data-menu-word
-                  className={`block origin-bottom-left text-[clamp(1.25rem,min(12cqh,14vw),5.25rem)] leading-[1.05] tracking-[-0.065em] transition-colors duration-300 group-hover:text-accent group-focus-visible:text-accent [@media(max-height:500px)_and_(min-width:500px)]:text-[clamp(1.5rem,8.8dvh,2.75rem)] ${index % 2 ? "font-editorial italic tracking-[-0.045em]" : "font-medium"}`}
+                  className={`block origin-bottom-left ${item.href === "#cristina" ? "text-[clamp(1.125rem,min(9cqh,8vw),3.5rem)]" : "text-[clamp(1.25rem,min(12cqh,14vw),5.25rem)]"} leading-[1.05] tracking-[-0.065em] transition-colors duration-300 group-hover:text-accent group-focus-visible:text-accent [@media(max-height:500px)_and_(min-width:500px)]:text-[clamp(1.125rem,7dvh,2rem)] ${index % 2 ? "font-editorial italic tracking-[-0.045em]" : "font-medium"}`}
                 >
                   {item.label}
                 </span>
@@ -303,7 +313,7 @@ export function MobileMenu({
           className="shrink-0 pt-4 [@media(max-height:500px)]:pt-1"
         >
           <ActionLink
-            href="#programari"
+            href={`${homePrefix}#contact`}
             variant="solid"
             onClick={(event) => {
               if (
@@ -314,7 +324,7 @@ export function MobileMenu({
               )
                 return;
               event.preventDefault();
-              navigate("#programari");
+              navigate(`${homePrefix}#contact`);
             }}
             className="w-full [@media(max-height:500px)]:min-h-11 [@media(max-height:500px)]:py-2"
           >
@@ -322,7 +332,7 @@ export function MobileMenu({
           </ActionLink>
           <div className="mt-4 flex items-center justify-between gap-3 text-[9px] text-ink/65 [@media(max-height:500px)]:mt-2">
             <span>{salon.address}</span>
-            <span>Creative hair studio</span>
+            <span>Hair &amp; Beauty Salon</span>
           </div>
         </div>
       </div>

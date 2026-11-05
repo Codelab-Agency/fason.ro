@@ -171,8 +171,8 @@ test("animated menu navigates to contact and resets after interrupted opening", 
     .getByRole("link", { name: "Vorbește cu noi", exact: true })
     .click();
   await expect(menu).not.toBeVisible();
-  await expect(page).toHaveURL(/#programari$/);
-  await expect(page.locator("#programari h2")).toBeInViewport();
+  await expect(page).toHaveURL(/#contact$/);
+  await expect(page.locator("#contact h2")).toBeInViewport();
   expect(await page.evaluate(() => document.body.style.overflow)).toBe("");
   await trigger.click();
   await page.setViewportSize({ width: 1280, height: 900 });

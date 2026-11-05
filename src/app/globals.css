@@ -78,9 +78,11 @@
 
 @keyframes hero-letter-in {
   from {
-    transform: translateY(110%) rotate(5deg);
+    opacity: 0;
+    transform: translateY(0.6em) rotate(2deg);
   }
   to {
+    opacity: 1;
     transform: none;
   }
 }

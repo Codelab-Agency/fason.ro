@@ -9,8 +9,8 @@ test("desktop: hero WebGL, services, gallery and direct contact", async ({
     if (message.type() === "error") errors.push(message.text());
   });
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "mai multtu.",
+  await expect(page.getByRole("heading", { level: 1 })).toHaveAccessibleName(
+    "FASON — În căutarea frumuseții",
   );
   await expect(page.locator("#acasa canvas")).toBeVisible();
   await expect(page.locator("#acasa canvas")).toHaveCSS("opacity", "1", {
@@ -22,7 +22,7 @@ test("desktop: hero WebGL, services, gallery and direct contact", async ({
   await page.screenshot({ path: ".preview/desktop-hero.png" });
 
   const firstService = page.getByRole("link", {
-    name: "Tuns & formă",
+    name: "Tuns damă & barber",
     exact: true,
   });
   const serviceItems = page.locator("#servicii article");
@@ -32,15 +32,16 @@ test("desktop: hero WebGL, services, gallery and direct contact", async ({
     await expect(article.locator("p")).toBeVisible();
   }
   await firstService.scrollIntoViewIfNeeded();
-  await expect(firstService).toHaveAttribute("href", "#programari");
+  await expect(firstService).toHaveAttribute("href", "/preturi#tuns-barber");
   await firstService.click();
-  await expect(page).toHaveURL(/#programari$/);
-  await expect(page.locator("#programari h2")).toBeInViewport();
+  await expect(page).toHaveURL(/\/preturi#tuns-barber$/);
+  await expect(page.locator("#tuns-barber")).toContainText("85 lei");
+  await page.goto("/#contact");
+  await expect(page.locator("#contact h2")).toBeInViewport();
   await expect(page.locator("form")).toHaveCount(0);
 
   await page
-    .getByRole("navigation", { name: "Navigare principală" })
-    .getByRole("link", { name: "Portofoliu", exact: true })
+    .getByRole("link", { name: "Descoperă lucrările FASON", exact: true })
     .click();
   const golden = page.getByRole("button", { name: "Deschide Blond geometric" });
   await expect
@@ -56,16 +57,19 @@ test("desktop: hero WebGL, services, gallery and direct contact", async ({
   await page.keyboard.press("Escape");
   await expect(page.locator("dialog[open]")).toHaveCount(0);
 
-  await page.getByRole("link", { name: "Programări", exact: true }).click();
-  await expect(page).toHaveURL(/#programari$/);
-  await expect(page.locator("#programari")).toContainText(
+  await page
+    .getByRole("navigation", { name: "Navigare principală" })
+    .getByRole("link", { name: "Contact", exact: true })
+    .click();
+  await expect(page).toHaveURL(/#contact$/);
+  await expect(page.locator("#contact")).toContainText(
     "Datele de contact vor fi disponibile în curând.",
   );
   await expect(
     page.locator('a[href^="tel:"], a[href^="https://wa.me/"]'),
   ).toHaveCount(0);
 
-  for (const id of ["programari", "echipa", "despre", "contact"]) {
+  for (const id of ["cristina", "echipa", "despre", "contact"]) {
     await page.locator(`#${id}`).scrollIntoViewIfNeeded();
     await page.waitForTimeout(1100);
     await expect(page.locator(`#${id} h2`).first()).toHaveCSS("opacity", "1");
@@ -103,12 +107,12 @@ test("mobile: navigation, no overflow and direct contact access", async ({
     .getByRole("link", { name: "Vorbește cu noi", exact: true })
     .click();
   await expect(menu).not.toBeVisible();
-  await expect(page).toHaveURL(/#programari$/);
-  await expect(page.locator("#programari h2")).toBeInViewport();
+  await expect(page).toHaveURL(/#contact$/);
+  await expect(page.locator("#contact h2")).toBeInViewport();
   await expect(page.locator("form")).toHaveCount(0);
   for (const id of [
     "servicii",
-    "programari",
+    "cristina",
     "portofoliu",
     "echipa",
     "despre",

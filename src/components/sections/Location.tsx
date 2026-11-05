@@ -7,7 +7,6 @@ import { ActionButton, ActionLink } from "../ui/Action";
 import { Logo } from "../ui/Logo";
 import { SectionLabel } from "../ui/SectionLabel";
 import { Dialog } from "../ui/Dialog";
-import { GoogleReviews } from "./GoogleReviews";
 
 type LocationView = "map" | "facade";
 
@@ -99,7 +98,9 @@ export function Location() {
             >
               Fațada
             </ActionButton>
-            <GoogleReviews />
+            <ActionLink href="#recenzii" aria-label="Recenzii pe Google">
+              Recenzii
+            </ActionLink>
           </div>
         </div>
         <a

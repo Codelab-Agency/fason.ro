@@ -4,33 +4,31 @@ import dynamic from "next/dynamic";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { hero } from "@/lib/visual-assets.json";
 import { afterFirstPaint } from "@/lib/after-first-paint";
-import { ActionLink } from "../ui/Action";
 import HeroTouchEffect from "../effects/HeroTouchEffect";
 
 const HeroCanvas = dynamic(() => import("../effects/HeroCanvas"), {
   ssr: false,
 });
 
-function Letters({ text, offset = 0 }: { text: string; offset?: number }) {
+function HeroWords({ text, offset = 0 }: { text: string; offset?: number }) {
   return (
-    <span
-      className="inline-block overflow-hidden pb-[0.13em] align-top"
-      aria-hidden="true"
-    >
-      {Array.from(text).map((letter, index) => (
-        <span
-          key={index}
-          className="hero-letter inline-block whitespace-pre"
-          style={
-            {
-              "--letter-delay": `${0.15 + (index + offset) * 0.055}s`,
-            } as CSSProperties
-          }
-        >
-          {letter}
+    <>
+      {text.split(" ").map((word, index) => (
+        <span key={word}>
+          {index > 0 ? " " : null}
+          <span
+            className="hero-letter inline-block max-w-full wrap-anywhere"
+            style={
+              {
+                "--letter-delay": `${0.2 + (index + offset) * 0.12}s`,
+              } as CSSProperties
+            }
+          >
+            {word}
+          </span>
         </span>
       ))}
-    </span>
+    </>
   );
 }
 
@@ -72,8 +70,8 @@ export function Hero() {
   return (
     <section
       id="acasa"
-      aria-label="FASON — Creative hair studio"
-      className="relative m-3 h-[calc(100svh-24px)] min-h-[650px] overflow-hidden rounded-xl bg-ink text-cream md:m-5 md:h-[calc(100svh-40px)] md:min-h-[700px]"
+      aria-label="FASON — Hair & Beauty Salon"
+      className="relative m-3 min-h-[max(650px,calc(100svh-24px))] overflow-hidden rounded-xl bg-ink text-cream md:m-5 md:min-h-[max(700px,calc(100svh-40px))]"
     >
       <div className="hero-visual absolute inset-0">
         <picture>
@@ -105,47 +103,44 @@ export function Hero() {
           className="pointer-events-none absolute inset-x-0 top-0 h-[120px] bg-linear-to-b from-ink/65 via-ink/40 via-50% to-ink/0"
         />
       </div>
-      <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/25 via-transparent to-black/60" />
-      <div className="hero-heading pointer-events-none absolute inset-x-5 top-[17%] z-10 md:inset-x-8 md:top-[16%]">
-        <h1
-          aria-label="Mai mult tu."
-          className="flex flex-col text-[19.2vw] leading-[0.82] font-medium tracking-[-0.065em] text-gold md:flex-row md:justify-center md:gap-[0.2em] md:text-[16.4vw]"
-        >
-          <Letters text="mai mult" />
-          <span className="-mt-1 self-end md:mt-0 md:self-auto">
-            <Letters text="tu." offset={8} />
-          </span>
-        </h1>
-        <div className="hero-intro mt-2 hidden items-center justify-between px-[7%] md:flex">
-          <span className="rounded-full bg-cream/90 px-3 py-1 text-[9px] tracking-tight text-ink">
-            O formă de expresie.
-          </span>
-          <span className="rounded-full bg-cream/90 px-3 py-1 text-[9px] tracking-tight text-ink">
-            Un look. O energie. Tu.
-          </span>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(20,17,15,0.12)_0%,transparent_35%,rgba(20,17,15,0.45)_55%,rgba(20,17,15,0.88)_82%,rgba(20,17,15,0.96)_100%)]"
+      />
+      <div className="relative z-10 flex min-h-[inherit] flex-col items-center justify-end px-5 pt-[max(25rem,50svh)] pb-8 text-center sm:px-8 md:pt-[max(23rem,48svh)] md:pb-12 lg:pb-14">
+        <div className="hero-heading w-full min-w-0">
+          <h1
+            aria-label="FASON — În căutarea frumuseții"
+            className="text-[clamp(2.5rem,11.2vw,3.75rem)] leading-[1.08] font-medium tracking-[-0.045em] md:text-[clamp(3.5rem,7.2vw,8.25rem)]"
+          >
+            <span
+              aria-hidden="true"
+              className="mb-4 block text-[0.75rem] leading-[1.5] tracking-[0.22em] text-cream/85 uppercase md:mb-5 md:text-[0.875rem]"
+            >
+              FASON
+            </span>
+            <span
+              aria-hidden="true"
+              className="block md:flex md:flex-wrap md:items-baseline md:justify-center md:gap-x-[0.22em]"
+            >
+              <span className="block">
+                <HeroWords text="În căutarea" />
+              </span>{" "}
+              <span className="block font-editorial font-normal italic tracking-[-0.025em] text-gold">
+                <HeroWords text="frumuseții" offset={2} />
+              </span>
+            </span>
+          </h1>
+        </div>
+        <div className="hero-intro mt-6 flex flex-col items-center md:mt-7">
+          <p className="text-[0.75rem] leading-[1.5] tracking-[0.04em] text-cream/85 md:text-[0.8125rem]">
+            Cu drag de oameni
+          </p>
+          <p className="mt-2 max-w-[25ch] font-editorial text-[clamp(1.4rem,5.5vw,1.75rem)] leading-[1.3] text-pretty md:mt-3 md:max-w-none md:text-[clamp(1.5rem,2.1vw,2.125rem)]">
+            Autenticitate cu stil și eleganță
+          </p>
         </div>
       </div>
-      <div className="hero-intro absolute inset-x-5 bottom-[12%] z-10 flex flex-col items-center text-center md:bottom-[11%]">
-        <p className="mb-5 text-[8px] tracking-[0.22em] uppercase">
-          Hair as a form of self-expression
-        </p>
-        <p className="font-editorial text-[30px] leading-[1.03] sm:text-4xl md:text-[42px]">
-          Părul tău. Energia ta.
-          <br />
-          <em>O nouă perspectivă.</em>
-        </p>
-        <ActionLink
-          href="#programari"
-          variant="solid"
-          tone="light"
-          className="mt-6"
-        >
-          Vorbește cu noi
-        </ActionLink>
-      </div>
-      <span className="hero-intro absolute right-8 bottom-9 hidden text-[9px] tracking-[0.1em] md:block">
-        FORMĂ. CULOARE. ATITUDINE.
-      </span>
     </section>
   );
 }

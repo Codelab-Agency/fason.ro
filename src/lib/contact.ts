@@ -13,3 +13,13 @@ export function getWhatsAppHref(phone: string | null, service?: string) {
     : "Bună! Aș vrea să discutăm despre o vizită la FASON.";
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
 }
+
+export function getContactEmailHref(
+  recipient: string | null,
+  fields: { name: string; email: string; message: string },
+) {
+  if (!recipient || !/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(recipient))
+    return null;
+  const body = `Nume: ${fields.name.trim()}\nE-mail: ${fields.email.trim()}\n\n${fields.message.trim()}`;
+  return `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent("Mesaj de pe website FASON")}&body=${encodeURIComponent(body)}`;
+}

@@ -4,14 +4,14 @@ import "./fonts.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "FASON — Creative Hair Studio",
+  title: "FASON — Hair & Beauty Salon",
   description:
-    "Formă. Culoare. Atitudine. Descoperă serviciile și colecțiile FASON: tuns personalizat, culoare, balayage și styling creativ.",
+    "FASON — În căutarea frumuseții. Hair & beauty în București, sub direcția creativă a Cristinei Gramma. Cu drag de oameni.",
   applicationName: "FASON",
   openGraph: {
-    title: "FASON — Mai mult tu.",
+    title: "FASON — În căutarea frumuseții",
     description:
-      "Salon FASON, București. Tunsori, culoare și styling. Descoperă colecțiile și pregătește o vizită în salon.",
+      "Hair & Beauty Salon în București. Hairstyling, cosmetică și îngrijire personalizată, sub direcția creativă a Cristinei Gramma.",
     locale: "ro_RO",
     type: "website",
   },

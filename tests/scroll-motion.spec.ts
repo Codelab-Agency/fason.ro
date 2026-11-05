@@ -61,9 +61,9 @@ for (const viewport of [
     await story.evaluate((element) => {
       window.scrollTo({
         top:
-          element.getBoundingClientRect().top +
+          element.getBoundingClientRect().bottom +
           window.scrollY -
-          window.innerHeight * 0.35,
+          window.innerHeight * 0.55,
         behavior: "instant",
       });
     });

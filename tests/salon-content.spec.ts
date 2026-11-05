@@ -12,7 +12,7 @@ test("tariffs distinguish starting prices, fixed fees and missing values", () =>
   expect(formatServicePrice({ amount: Infinity, kind: "from" })).toBeNull();
 });
 
-test("sample tariffs are labeled and the full team stays visible", async ({
+test("the client brief shows all services, the founder and both team destinations", async ({
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
@@ -20,26 +20,38 @@ test("sample tariffs are labeled and the full team stays visible", async ({
   const services = page.locator("#servicii");
   await expect(services.locator("article")).toHaveCount(6);
   await expect(
-    services.getByText("de la 180 lei", { exact: true }),
+    services.getByRole("link", { name: "Tuns damă & barber", exact: true }),
   ).toBeVisible();
-  await expect(services.getByText("75 lei", { exact: true })).toBeVisible();
-  await expect(services).toContainText("Tarife demonstrative");
-  const people = page.locator("[data-team-member]");
-  await expect(people).toHaveCount(3);
-  for (const person of await people.all()) {
-    await person.scrollIntoViewIfNeeded();
-    await expect(person.locator("h3")).toBeVisible();
-    await expect
-      .poll(() =>
-        person
-          .locator("img")
-          .evaluate(
-            (image: HTMLImageElement) =>
-              image.complete && image.naturalWidth > 0,
-          ),
-      )
-      .toBe(true);
-  }
+  await expect(
+    services.getByRole("link", { name: "Tratamente corporale", exact: true }),
+  ).toBeVisible();
+  await expect(page.locator("#cristina")).toContainText(
+    "Fondatoare & Creative Director",
+  );
+  await expect(page.locator("#echipa a[href^='/echipa/']")).toHaveCount(2);
+  await page
+    .getByRole("link", { name: "Descoperă echipa Coafor & Barber" })
+    .click();
+  await expect(page).toHaveURL(/\/echipa\/coafor-barber$/);
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Coafor & Barber" }),
+  ).toBeVisible();
+  await expect(page.locator(".site-nav")).toHaveAttribute(
+    "data-surface",
+    "page",
+  );
+  await expect(page.locator("[data-team-member]")).toHaveCount(1);
+  await page
+    .getByRole("navigation", { name: "Specializările echipei" })
+    .getByRole("link", { name: "Beauty", exact: true })
+    .click();
+  await expect(page).toHaveURL(/\/echipa\/beauty$/);
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Beauty" }),
+  ).toBeVisible();
+  await expect(page.locator("[data-team-member]")).toHaveCount(0);
+  await page.getByRole("link", { name: "Înapoi la FASON" }).click();
+  await expect(page).toHaveURL(/\/#echipa$/);
   await page.setViewportSize({ width: 320, height: 568 });
   await expect(page.locator("#despre")).toHaveCount(1);
   await expect(
